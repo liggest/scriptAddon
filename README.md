@@ -10,18 +10,19 @@ Attempt to add [annotations](https://github.com/LuaLS/lua-language-server/wiki/A
 
 - Install [the lua extension][LuaExtension]
 - Edit settings of the extension in your project folder (workspace)
-Example `.vscode/settings.json`
 
-```JSON
-{
-    "Lua.workspace.userThirdParty": [
-        "path/to/parent directory of scriptAddon"
-    ],
-    "Lua.workspace.library": [
-        "path/to/scriptAddon/library"
-    ]
-}
-```
+    Example `.vscode/settings.json`
+
+    ```JSON
+    {
+        "Lua.workspace.userThirdParty": [
+            "path/to/parent directory of scriptAddon"
+        ],
+        "Lua.workspace.library": [
+            "path/to/scriptAddon/library"
+        ]
+    }
+    ```
 
 ## Generation
 
