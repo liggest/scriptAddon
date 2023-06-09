@@ -1,7 +1,7 @@
 ---@meta
 
 ---@class Duel
-local Duel = {}
+local Duel = require("duel.gen")
 
 -- 过滤函数，检查以player来看的指定位置是否存在至少count张满足过滤条件f并且不等于ex的卡  
 -- s代表以player来看的自己的位置，o代表以player来看的对方的位置  

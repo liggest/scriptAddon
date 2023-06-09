@@ -1,7 +1,7 @@
 ---@meta
 
 ---@class Effect
-local Effect = {}
+local Effect = require("effect.gen")
 
 -- 新建一个空效果  
 -- 并且效果的Owner为c

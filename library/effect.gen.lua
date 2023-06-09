@@ -3,13 +3,6 @@
 ---@class Effect
 local Effect = {}
 
--- ●Effect Effect.CreateEffect(Card c)  
--- 新建一个空效果  
--- 并且效果的Owner为c  
----@param c Card
----@return Effect
-function Effect.CreateEffect(c) end
-
 -- ●Effect Effect.GlobalEffect()  
 -- 新建一个全局效果  
 ---@return Effect
@@ -37,12 +30,6 @@ function Effect.GetFieldID(e) end
 ---@param e Effect
 ---@param desc integer
 function Effect.SetDescription(e, desc) end
-
--- ●void Effect.SetCode(Effect e, int code)  
--- 为效果e设置Code属性  
----@param e Effect
----@param code integer
-function Effect.SetCode(e, code) end
 
 -- ●void Effect.SetRange(Effect e, int range)  
 -- 为效果e设置Range属性，即e的生效位置  
@@ -93,12 +80,6 @@ function Effect.SetCountLimit(e, count, code) end
 ---@param reset_count? integer 1
 function Effect.SetReset(e, reset_flag, reset_count) end
 
--- ●void Effect.SetType(Effect e, int type)  
--- 为效果e设置Type属性  
----@param e Effect
----@param type integer
-function Effect.SetType(e, type) end
-
 -- ●void Effect.SetProperty(Effect e, int prop1[, int prop2])  
 -- 设置Property属性  
 ---@param e Effect
@@ -117,12 +98,6 @@ function Effect.SetLabel(e, label) end
 ---@param e Effect
 ---@param labelobject Card | Group | Effect
 function Effect.SetLabelObject(e, labelobject) end
-
--- ●void Effect.SetCategory(Effect e, int cate)  
--- 设置Category属性  
----@param e Effect
----@param cate integer
-function Effect.SetCategory(e, cate) end
 
 -- ●void Effect.SetHintTiming(Effect e, int s_time[, int o_time=s_time])  
 -- 设置提示时点，第二个和第三个参数分别表示 自己 和对方的回合  
@@ -143,23 +118,11 @@ function Effect.SetCondition(e, con_func) end
 ---@param cost_func function
 function Effect.SetCost(e, cost_func) end
 
--- ●void Effect.SetTarget(Effect e, function targ_func)  
--- 设置Target属性  
----@param e Effect
----@param targ_func function
-function Effect.SetTarget(e, targ_func) end
-
 -- ●void Effect.SetValue(Effect e, function|int|bool val)  
 -- 设置Value属性  
 ---@param e Effect
 ---@param val function | integer | boolean
 function Effect.SetValue(e, val) end
-
--- ●void Effect.SetOperation(Effect e, nil|function op_func)  
--- 设置Operation属性  
----@param e Effect
----@param op_func nil | function
-function Effect.SetOperation(e, op_func) end
 
 -- ●void Effect.SetOwnerPlayer(Effect e[, int player=0])  
 -- 设置OwnerPlayer属性为player  

@@ -4,6 +4,9 @@ from pathlib import Path
 from collections import deque
 from typing import Generator
 
+HERE = Path(__file__).parent
+LIBRARY = HERE.parent / "library"
+
 class Param:
 
     LegalTypes = { "nil", "any", "boolean", "string", "number", "integer", "function", "table", "thread", "userdata", "lightuserdata", "...", "Card", "Group", "Effect"}
@@ -223,8 +226,25 @@ class LuaClass:
 
     def __init__(self, name:str):
         self.name = name.strip("=").strip()
-        self.path = Path(f"{self.name.lower()}.gen.lua")
+        self.path = LIBRARY / f"{self.name.lower()}.gen.lua"
         self.functions:deque[LuaFunction] = deque()
+        self._customed_functions:set = None  # 被手动标注过的函数
+
+    def customed_gen(self):
+        path = LIBRARY / f"{self.name.lower()}.lua"
+        if not path.is_file():
+            return
+        with path.open(encoding = "utf-8") as f:
+            for line in f:
+                if line.startswith("function"):  # 函数定义
+                    function_name, *_ = line.removeprefix("function ").split("(", maxsplit = 1)
+                    yield function_name
+
+    @property
+    def customed_functions(self):
+        if not self._customed_functions:
+            self._customed_functions = {*self.customed_gen()}
+        return self._customed_functions
 
     def head_gen(self):
         yield self.META
@@ -240,13 +260,14 @@ class LuaClass:
         yield from self.head_gen()
         for f in self.functions:
             f.parse()
-            yield from f.annotation_gen()
+            if f.name not in self.customed_functions: # 不重复生成已经手动标注过的函数
+                yield from f.annotation_gen()
         yield from self.tail_gen()
 
-path = Path("./_functions.txt")
+path = HERE / "_functions.txt"
 
-while not path.exists():
-    path = Path(input(f"未找到 {path} \n请提供 _functions.txt 所在路径：\n"))
+# while not path.exists():
+#     path = Path(input(f"未找到 {path} \n请提供 _functions.txt 所在路径：\n"))
 
 current_cls = None
 current_annotation = None

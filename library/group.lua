@@ -1,7 +1,7 @@
 ---@meta
 
 ---@class Group
-local Group = {}
+local Group = require("group.gen")
 
 -- ●int Group.GetCount(Group g)  
 -- 返回g中卡的数量

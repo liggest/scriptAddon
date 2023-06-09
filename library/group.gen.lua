@@ -60,12 +60,6 @@ function Group.GetFirst(g) end
 ---@return Card
 function Group.GetNext(g) end
 
--- ●int Group.GetCount(Group g)  
--- 返回g中卡的数量  
----@param g Group
----@return integer
-function Group.GetCount(g) end
-
 -- ●int Group.__len(Group g)  
 -- 和 Group.GetCount 一样  
 ---@param g Group

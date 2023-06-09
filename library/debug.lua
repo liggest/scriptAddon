@@ -1,7 +1,7 @@
 ---@meta
 
 ---@class Debug
-local Debug = {}
+local Debug = require("debug.gen")
 
 -- ●void Debug.Message(any msg)  
 -- 显示消息。  

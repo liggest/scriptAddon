@@ -4,7 +4,7 @@ Card = require("card")
 Effect = require("effect")
 Group = require("group")
 Duel = require("duel")
-Debug = require("debug")
+Debug = require("library.debug")
 Auxiliary = require("auxiliary")
 aux = Auxiliary
 

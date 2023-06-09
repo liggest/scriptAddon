@@ -3,9 +3,10 @@
 
 ---@class Card
 ---@field initial_effect fun(c:Card)
-local Card = {}
+local Card = require("card.gen")
 
----comment
+-- 载入卡片时调用  
+-- 一般是注册初始卡片效果，以及设置苏生限制等等
 ---@param c Card
 function Card.initial_effect(c) end
 

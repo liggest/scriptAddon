@@ -1029,16 +1029,6 @@ function Card.GetTunerLimit(c) end
 ---@return integer | nil
 function Card.GetHandSynchro(c) end
 
--- ●int Card.RegisterEffect(Card c, Effect e[, bool forced=false])  
--- 把效果e注册给c，返回效果的全局id，并设置e的Handler为c  
--- 默认情况下注册时如果c带有免疫e的效果那么注册会失败  
--- 如果forced为true则不会检查c对e的免疫效果  
----@param c Card
----@param e Effect
----@param forced? boolean false
----@return integer
-function Card.RegisterEffect(c, e, forced) end
-
 -- ●... Card.IsHasEffect(Card c, int code)  
 -- 检查c是否受到效果种类是code的效果的影响  
 -- 没有则返回nil  
