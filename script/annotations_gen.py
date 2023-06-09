@@ -35,6 +35,8 @@ class Param:
         if self._t_union:
             t = " | ".join(filter(None, self._t_union))
         if name:
+            if self.default: # 暂时有名字再考虑 default
+                return f"{self.PARAM} {name} {t} {self.default}"
             return f"{self.PARAM} {name} {t}" 
         return f"{self.PARAM} {t}"
         

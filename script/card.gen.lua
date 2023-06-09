@@ -241,7 +241,7 @@ function Card.GetLinkedGroupCount(c) end
 -- ●int Card.GetLinkedZone(Card c[, int player=c:GetControler()])  
 -- 返回c的[以 player 来看的场上的]连接区域  
 ---@param c Card
----@param player? integer
+---@param player? integer c:GetControler()
 ---@return integer
 function Card.GetLinkedZone(c, player) end
 
@@ -260,7 +260,7 @@ function Card.GetMutualLinkedGroupCount(c) end
 -- ●int Card.GetMutualLinkedZone(Card c[, int player=c:GetControler()])  
 -- 返回[以 player 来看的]与卡片 c 互相连接的卡 所在的区域  
 ---@param c Card
----@param player? integer
+---@param player? integer c:GetControler()
 ---@return integer
 function Card.GetMutualLinkedZone(c, player) end
 
@@ -280,16 +280,16 @@ function Card.IsExtraLinkState(c) end
 -- 返回与c同一纵列的c以外的卡片组，后2个参数会计算卡片c左边 left 列 和右边 right 列的所有卡，  
 -- 比如c在中间的格子，那么 c:GetColumnGroup(2,2) 就相当于获取了除场地魔法以外的 场上的所有卡  
 ---@param c Card
----@param left? integer
----@param right? integer
+---@param left? integer 0
+---@param right? integer 0
 ---@return Group
 function Card.GetColumnGroup(c, left, right) end
 
 -- ●int Card.GetColumnGroupCount(Card c[,int left=0, int right=0])  
 -- 用法同上，只是返回的是卡片的数量  
 ---@param c Card
----@param left? integer
----@param right? integer
+---@param left? integer 0
+---@param right? integer 0
 ---@return integer
 function Card.GetColumnGroupCount(c, left, right) end
 
@@ -1035,7 +1035,7 @@ function Card.GetHandSynchro(c) end
 -- 如果forced为true则不会检查c对e的免疫效果  
 ---@param c Card
 ---@param e Effect
----@param forced? boolean
+---@param forced? boolean false
 ---@return integer
 function Card.RegisterEffect(c, e, forced) end
 
@@ -1183,7 +1183,7 @@ function Card.IsRelateToBattle(c) end
 ---@param c Card
 ---@param code integer
 ---@param reset_flag integer
----@param reset_count? integer
+---@param reset_count? integer 1
 ---@return integer
 function Card.CopyEffect(c, code, reset_flag, reset_count) end
 
@@ -1193,7 +1193,7 @@ function Card.CopyEffect(c, code, reset_flag, reset_count) end
 ---@param c Card
 ---@param code integer
 ---@param reset_flag integer
----@param reset_count? integer
+---@param reset_count? integer 1
 ---@return integer
 function Card.ReplaceEffect(c, code, reset_flag, reset_count) end
 
@@ -1268,8 +1268,8 @@ function Card.IsSynchroSummonable(c, tuner, mg) end
 -- 如果mg为nil，此函数与 c:IsSpecialSummonable(SUMMON_TYPE_XYZ)作用相同  
 ---@param c Card
 ---@param mg? Group
----@param min? integer
----@param max? integer
+---@param min? integer 0
+---@param max? integer 0
 ---@return boolean
 function Card.IsXyzSummonable(c, mg, min, max) end
 
@@ -1279,8 +1279,8 @@ function Card.IsXyzSummonable(c, mg, min, max) end
 ---@param c Card
 ---@param ignore_count boolean
 ---@param e? Effect
----@param min? integer
----@param zone? integer
+---@param min? integer 0
+---@param zone? integer 0x1f
 ---@return boolean
 function Card.IsSummonable(c, ignore_count, e, min, zone) end
 
@@ -1290,15 +1290,15 @@ function Card.IsSummonable(c, ignore_count, e, min, zone) end
 ---@param c Card
 ---@param ignore_count boolean
 ---@param e? Effect
----@param min? integer
----@param zone? integer
+---@param min? integer 0
+---@param zone? integer 0x1f
 ---@return boolean
 function Card.IsMSetable(c, ignore_count, e, min, zone) end
 
 -- ●bool Card.IsSSetable(Card c[, bool ignore_field=false])  
 -- 检查c是否可以set到魔法陷阱区，ignore_field=true则无视魔陷区格子是否能使用的限制  
 ---@param c Card
----@param ignore_field? boolean
+---@param ignore_field? boolean false
 ---@return boolean
 function Card.IsSSetable(c, ignore_field) end
 
@@ -1311,9 +1311,9 @@ function Card.IsSSetable(c, ignore_field) end
 ---@param sumplayer integer
 ---@param nocheck boolean
 ---@param nolimit boolean
----@param sumpos? integer
----@param toplayer? integer
----@param zone? integer
+---@param sumpos? integer POS_FACEUP
+---@param toplayer? integer sumplayer
+---@param zone? integer 0xff
 ---@return boolean
 function Card.IsCanBeSpecialSummoned(c, e, sumtype, sumplayer, nocheck, nolimit, sumpos, toplayer, zone) end
 
@@ -1421,7 +1421,7 @@ function Card.IsReleasableByEffect(c) end
 -- 注：此函数仅用于检测，  
 -- 以REASON_DISCARD作为原因把一张手卡送墓并不会导致那张卡不能丢弃  
 ---@param c Card
----@param reason? integer
+---@param reason? integer REASON_COST
 ---@return boolean
 function Card.IsDiscardable(c, reason) end
 
@@ -1436,8 +1436,8 @@ function Card.IsAttackable(c) end
 -- monsteronly = true 则表示只能对怪兽攻击  
 -- 注：当c因为闪光之双剑等效果进行过多次攻击之后此函数返回false  
 ---@param c Card
----@param ac? integer
----@param monsteronly? boolean
+---@param ac? integer 2
+---@param monsteronly? boolean false
 ---@return boolean
 function Card.IsChainAttackable(c, ac, monsteronly) end
 
@@ -1608,8 +1608,8 @@ function Card.IsAbleToChangeControler(c) end
 -- ●bool Card.IsControlerCanBeChanged(Card c[, bool ignore_mzone=false, int zone=0xff])  
 -- 检查c的控制权是否可以改变。 ignore_mzone=true 会忽视转移控制权后的玩家场上是否有空格位， zone 表示必须要使用的位置  
 ---@param c Card
----@param ignore_mzone? boolean
----@param zone? integer
+---@param ignore_mzone? boolean false
+---@param zone? integer 0xff
 ---@return boolean
 function Card.IsControlerCanBeChanged(c, ignore_mzone, zone) end
 
@@ -1625,7 +1625,7 @@ function Card.IsCanHaveCounter(c, countertype) end
 ---@param c Card
 ---@param countertype integer
 ---@param count integer
----@param singly? integer
+---@param singly? integer false
 ---@return boolean
 function Card.AddCounter(c, countertype, count, singly) end
 
@@ -1677,7 +1677,7 @@ function Card.IsCanTurnSet(c) end
 ---@param c Card
 ---@param countertype integer
 ---@param count integer
----@param singly? integer
+---@param singly? integer false
 ---@param location? integer
 ---@return boolean
 function Card.IsCanAddCounter(c, countertype, count, singly, location) end
@@ -1733,7 +1733,7 @@ function Card.IsCanBeLinkMaterial(c, sc) end
 ---@param c Card
 ---@param g? Group
 ---@param gc? Card
----@param chkf? integer
+---@param chkf? integer PLAYER_NONE
 ---@return boolean
 function Card.CheckFusionMaterial(c, g, gc, chkf) end
 
@@ -1783,7 +1783,7 @@ function Card.AddMonsterAttribute(c, type, attribute, race, level, atk, def) end
 -- 送墓确定状态中的卡无法返回手卡和卡组，并且连锁结束时送去墓地  
 -- 此函数的作用是取消此状态使其留场，用于光之护封剑和废铁稻草人等卡  
 ---@param c Card
----@param cancel? boolean
+---@param cancel? boolean true
 function Card.CancelToGrave(c, cancel) end
 
 -- ●int,int Card.GetTributeRequirement(Card c)  
@@ -1832,14 +1832,14 @@ function Card.ReverseInDeck(c) end
 ---@param s integer
 ---@param o integer
 ---@param unique_code function | integer
----@param unique_location? integer
+---@param unique_location? integer LOCATIOIN_ONFIELD
 function Card.SetUniqueOnField(c, s, o, unique_code, unique_location) end
 
 -- ●bool Card.CheckUniqueOnField(Card c,int check_player[, int check_location=LOCATION_ONFIELD, Card icard|nil])  
 -- 检查c在check_player场上的唯一性  
 ---@param c Card
 ---@param check_player integer
----@param check_location? integer
+---@param check_location? integer LOCATION_ONFIELD
 ---@param icard? Card
 ---@return boolean
 function Card.CheckUniqueOnField(c, check_player, check_location, icard) end
@@ -1885,7 +1885,7 @@ function Card.IsRitualType(c) end
 -- no_alias=true会把变身后c的同名卡信息去除。用于双面卡的处理。  
 ---@param c Card
 ---@param code integer
----@param no_alias? boolean
+---@param no_alias? boolean false
 ---@return boolean
 function Card.SetEntityCode(c, code, no_alias) end
 
@@ -1947,8 +1947,8 @@ function Card.IsOriginalCodeRule(c, code) end
 -- 如果mg为nil，此函数与 c:IsSpecialSummonable(SUMMON_TYPE_LINK)作用相同  
 ---@param c Card
 ---@param mg? Group
----@param min? integer
----@param max? integer
+---@param min? integer 0
+---@param max? integer 0
 ---@return boolean
 function Card.IsLinkSummonable(c, mg, min, max) end
 

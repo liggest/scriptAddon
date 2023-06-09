@@ -82,15 +82,15 @@ function Effect.SetAbsoluteRange(e, playerid, s_range, o_range) end
 -- EFFECT_COUNT_CODE_DUEL          决斗中使用次数  
 -- EFFECT_COUNT_CODE_SINGLE        同一张卡多个效果公共使用次数（不限制同名卡）  
 ---@param e Effect
----@param count integer
----@param code? integer
+---@param count integer 1
+---@param code? integer 0
 function Effect.SetCountLimit(e, count, code) end
 
 -- ●void Effect.SetReset(Effect e, int reset_flag[, int reset_count=1])  
 -- 设置reset参数  
 ---@param e Effect
 ---@param reset_flag integer
----@param reset_count? integer
+---@param reset_count? integer 1
 function Effect.SetReset(e, reset_flag, reset_count) end
 
 -- ●void Effect.SetType(Effect e, int type)  
@@ -128,7 +128,7 @@ function Effect.SetCategory(e, cate) end
 -- 设置提示时点，第二个和第三个参数分别表示 自己 和对方的回合  
 ---@param e Effect
 ---@param s_time integer
----@param o_time? integer
+---@param o_time? integer s_time
 function Effect.SetHintTiming(e, s_time, o_time) end
 
 -- ●void Effect.SetCondition(Effect e, function con_func)  
@@ -164,7 +164,7 @@ function Effect.SetOperation(e, op_func) end
 -- ●void Effect.SetOwnerPlayer(Effect e[, int player=0])  
 -- 设置OwnerPlayer属性为player  
 ---@param e Effect
----@param player? integer
+---@param player? integer 0
 function Effect.SetOwnerPlayer(e, player) end
 
 -- ●int Effect.GetDescription(Effect e)  
@@ -305,8 +305,8 @@ function Effect.IsHasType(e, type) end
 -- neglect_loc=true 为不检测发动位置， neglect_target=true 为不检测对象要求  
 ---@param e Effect
 ---@param player integer
----@param neglect_loc? boolean
----@param neglect_target? boolean
+---@param neglect_loc? boolean false
+---@param neglect_target? boolean false
 ---@return boolean
 function Effect.IsActivatable(e, player, neglect_loc, neglect_target) end
 
@@ -346,8 +346,8 @@ function Effect.CheckCountLimit(e, p) end
 -- 手动减少玩家 p 对效果 e 的 count 个可用次数[ oath_only 为 该效果是否是 EFFECT_FLAG_OATH]  
 ---@param e Effect
 ---@param p integer
----@param count? integer
----@param oath_only? boolean
+---@param count? integer 1
+---@param oath_only? boolean false
 function Effect.UseCountLimit(e, p, count, oath_only) end
 
 -- ●void Effect.SetOwner(Effect e, Card c)  

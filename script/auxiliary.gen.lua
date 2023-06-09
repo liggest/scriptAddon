@@ -189,7 +189,7 @@ function Auxiliary.MustMaterialCounterFilter(c, g) end
 ---@param f1? function
 ---@param f2? function
 ---@param minc integer
----@param maxc? integer
+---@param maxc? integer 99
 function Auxiliary.AddSynchroProcedure(c, f1, f2, minc, maxc) end
 
 -- ●void Auxiliary.AddSynchroProcedure2(Card c, function f1, function f2)  
@@ -239,7 +239,7 @@ function Auxiliary.TuneMagicianCheckX(c, sg, e) end
 ---@param ct integer
 ---@param alterf? function
 ---@param desc? integer
----@param maxc? integer
+---@param maxc? integer ct
 ---@param op? function
 function Auxiliary.AddXyzProcedure(c, f, lv, ct, alterf, desc, maxc, op) end
 
@@ -499,13 +499,13 @@ function Auxiliary.AddRitualProcEqual2Code2(c, code1, code2) end
 -- 为灵摆怪兽c添加灵摆怪兽属性（灵摆召唤，灵摆卡的发动）  
 -- active_effect=false则不注册灵摆卡“卡的发动”的效果  
 ---@param c Card
----@param active_effect? any
+---@param active_effect? any true
 function Auxiliary.EnablePendulumAttribute(c, active_effect) end
 
 -- ●void Auxiliary.EnableReviveLimitPendulumSummonable(Card c[, int location=0xff])  
 -- 如果 怪兽 c 从 location 灵摆召唤，也能解除苏生限制(?) (超天新龙 异色眼革命龙 (16306932))  
 ---@param c Card
----@param location? integer
+---@param location? integer 0xff
 function Auxiliary.EnableReviveLimitPendulumSummonable(c, location) end
 
 -- ●void Auxiliary.AddLinkProcedure(Card c, function f|nil, int minc[, int maxc=99, function gf|nil])  
@@ -514,7 +514,7 @@ function Auxiliary.EnableReviveLimitPendulumSummonable(c, location) end
 ---@param c Card
 ---@param f? function
 ---@param minc integer
----@param maxc? integer
+---@param maxc? integer 99
 ---@param gf? function
 function Auxiliary.AddLinkProcedure(c, f, minc, maxc, gf) end
 
@@ -555,7 +555,7 @@ function Auxiliary.IsCodeListed(c, code) end
 -- ●int Auxiliary.GetColumn(Card c, int player=0)  
 -- 返回以 player 来看的卡片 c 所在的那一列的序号，不包含 场地区域，从左到右 分别是 0~4  
 ---@param c Card
----@param player integer
+---@param player integer 0
 ---@return integer
 function Auxiliary.GetColumn(c, player) end
 

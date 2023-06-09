@@ -51,7 +51,7 @@ function Duel.RegisterEffect(e, player) end
 ---@param code integer
 ---@param reset_flag integer
 ---@param property integer
----@param reset_count integer
+---@param reset_count integer 1
 ---@param label? integer
 ---@return Effect
 function Duel.RegisterFlagEffect(player, code, reset_flag, property, reset_count, label) end
@@ -72,7 +72,7 @@ function Duel.ResetFlagEffect(player, code) end
 -- ●void Duel.ResetTimeLimit(int player[, int time=0])  
 -- 重新设置玩家player的当前回合时间。可选参数time（秒），范围必须在0到0x7fff之间  
 ---@param player integer
----@param time? integer
+---@param time? integer 0
 function Duel.ResetTimeLimit(player, time) end
 
 -- ●void Duel.SetSummonCancelable(bool enabled)  
@@ -101,7 +101,7 @@ function Duel.GetFlagEffectLabel(player, code) end
 -- 不会触发代破效果并且无视“不能破坏”  
 ---@param targets Card | Group
 ---@param reason integer
----@param dest? integer
+---@param dest? integer LOCATION_GRAVE
 ---@return integer
 function Duel.Destroy(targets, reason, dest) end
 
@@ -167,15 +167,15 @@ function Duel.GetOperatedGroup() end
 ---@param c Card
 ---@param ignore_count boolean
 ---@param e? Effect
----@param min? integer
----@param zone? integer
+---@param min? integer 0
+---@param zone? integer 0x1f
 function Duel.Summon(player, c, ignore_count, e, min, zone) end
 
 -- ●void Duel.SpecialSummonRule(int player, Card c[, int sumtype=0])  
 -- 让玩家player对c[用 sumtype 方式]进行特殊召唤手续（？）  
 ---@param player integer
 ---@param c Card
----@param sumtype? integer
+---@param sumtype? integer 0
 function Duel.SpecialSummonRule(player, c, sumtype) end
 
 -- ●void Duel.SynchroSummon(int player, Card c, Card tuner|nil[, Group mg|nil])  
@@ -192,8 +192,8 @@ function Duel.SynchroSummon(player, c, tuner, mg) end
 ---@param player integer
 ---@param c Card
 ---@param mg? Group
----@param min? any
----@param max? any
+---@param min? any 0
+---@param max? any 0
 function Duel.XyzSummon(player, c, mg, min, max) end
 
 -- ●void Duel.MSet(int player, Card c, bool ignore_count, Effect e|nil[,int min=0, int zone=0x1f])  
@@ -204,8 +204,8 @@ function Duel.XyzSummon(player, c, mg, min, max) end
 ---@param c Card
 ---@param ignore_count boolean
 ---@param e? Effect
----@param min? integer
----@param zone? integer
+---@param min? integer 0
+---@param zone? integer 0x1f
 function Duel.MSet(player, c, ignore_count, e, min, zone) end
 
 -- ●void|int Duel.SSet(int player, Card|Group targets[, int target_player=player, bool confirm=true])  
@@ -213,8 +213,8 @@ function Duel.MSet(player, c, ignore_count, e, min, zone) end
 -- 若targets为Group，则返回成功操作的数量  
 ---@param player integer
 ---@param targets Card | Group
----@param target_player? integer
----@param confirm? boolean
+---@param target_player? integer player
+---@param confirm? boolean true
 ---@return integer
 function Duel.SSet(player, targets, target_player, confirm) end
 
@@ -236,7 +236,7 @@ function Duel.CreateToken(player, code) end
 ---@param nocheck boolean
 ---@param nolimit boolean
 ---@param pos integer
----@param zone? integer
+---@param zone? integer 0xff
 ---@return integer
 function Duel.SpecialSummon(targets, sumtype, sumplayer, target_player, nocheck, nolimit, pos, zone) end
 
@@ -252,7 +252,7 @@ function Duel.SpecialSummon(targets, sumtype, sumplayer, target_player, nocheck,
 ---@param nocheck boolean
 ---@param nolimit boolean
 ---@param pos integer
----@param zone? integer
+---@param zone? integer 0xff
 ---@return boolean
 function Duel.SpecialSummonStep(c, sumtype, sumplayer, target_player, nocheck, nolimit, pos, zone) end
 
@@ -314,11 +314,11 @@ function Duel.GetCounter(player, s, o, countertype) end
 -- 如果setavailable=true则对象之后变成里侧也发动反转效果  
 ---@param targets Card | Group
 ---@param au integer
----@param ad? integer
----@param du? integer
----@param dd? integer
----@param noflip? boolean
----@param setavailable? boolean
+---@param ad? integer au
+---@param du? integer au
+---@param dd? integer au
+---@param noflip? boolean false
+---@param setavailable? boolean false
 ---@return integer
 function Duel.ChangePosition(targets, au, ad, du, dd, noflip, setavailable) end
 
@@ -347,7 +347,7 @@ function Duel.MoveToField(c, move_player, target_player, dest, pos, enable) end
 -- c必须是以REASON_TEMPORARY原因离场，并且离场后没有离开过那个位置  
 ---@param c Card
 ---@param pos? integer
----@param zone? integer
+---@param zone? integer 0xff
 ---@return boolean
 function Duel.ReturnToField(c, pos, zone) end
 
@@ -495,8 +495,8 @@ function Duel.GetEnvironment() end
 -- 场地代号指当前生效的场地卡的代号，或者海神的巫女把场地变化效果的值  
 -- 来源玩家指当前生效的场地卡的控制者，或者海神的巫女等卡的控制者  
 ---@param code integer
----@param player? integer
----@param loc? integer
+---@param player? integer PLAYER_ALL
+---@param loc? integer LOCATION_FZONE + LOCATION_ONFIELD
 ---@return boolean
 function Duel.IsEnvironment(code, player, loc) end
 
@@ -522,7 +522,7 @@ function Duel.Draw(player, count, reason) end
 ---@param player integer
 ---@param value integer
 ---@param reason integer
----@param is_step? boolean
+---@param is_step? boolean false
 ---@return integer
 function Duel.Damage(player, value, reason, is_step) end
 
@@ -533,7 +533,7 @@ function Duel.Damage(player, value, reason, is_step) end
 ---@param player integer
 ---@param value integer
 ---@param reason integer
----@param is_step? boolean
+---@param is_step? boolean false
 ---@return integer
 function Duel.Recover(player, value, reason, is_step) end
 
@@ -548,8 +548,8 @@ function Duel.RDComplete() end
 ---@param player integer
 ---@param c1 Card
 ---@param c2 Card
----@param up? boolean
----@param is_step? boolean
+---@param up? boolean true
+---@param is_step? boolean false
 ---@return boolean
 function Duel.Equip(player, c1, c2, up, is_step) end
 
@@ -572,9 +572,9 @@ function Duel.EquipComplete() end
 -- PHASE_END			=0x200	--结束阶段  
 ---@param targets Card | Group
 ---@param player integer
----@param reset_phase? integer
----@param reset_count? integer
----@param zone? integer
+---@param reset_phase? integer 0
+---@param reset_count? integer 0
+---@param zone? integer 0xff
 ---@return boolean
 function Duel.GetControl(targets, player, reset_phase, reset_count, zone) end
 
@@ -583,8 +583,8 @@ function Duel.GetControl(targets, player, reset_phase, reset_count, zone) end
 -- 第三个第四个参数同 Duel.GetControl  
 ---@param targets1 Card | Group
 ---@param targets2 Card | Group
----@param reset_phase? integer
----@param reset_count? integer
+---@param reset_phase? integer 0
+---@param reset_count? integer 0
 ---@return boolean
 function Duel.SwapControl(targets1, targets2, reset_phase, reset_count) end
 
@@ -629,7 +629,7 @@ function Duel.DiscardHand(player, f, min, max, reason, ex, ...) end
 -- 或者把卡加入卡组（非最上端或最底端）时，系统会自动在效果处理结束时洗切卡组或手卡  
 -- 如果不希望如此，比如从卡组顶端除外一张卡等操作，那么需要调用此函数  
 -- 此函数仅保证紧接着的一次操作不会进行洗卡检测  
----@param disable? boolean
+---@param disable? boolean true
 function Duel.DisableShuffleCheck(disable) end
 
 -- ●void Duel.ShuffleDeck(int player)  
@@ -659,7 +659,7 @@ function Duel.ShuffleSetCard(g) end
 -- 将攻击怪兽变为c  
 -- 若 ignore_count=true 则原来的攻击怪兽不视为攻击过  
 ---@param c Card
----@param ignore_count? boolean
+---@param ignore_count? boolean false
 function Duel.ChangeAttacker(c, ignore_count) end
 
 -- ●bool Duel.ChangeAttackTarget(Card c|nil)  
@@ -673,7 +673,7 @@ function Duel.ChangeAttackTarget(c) end
 -- 若 new_attack=true 则视为 攻击的卡进行过攻击宣言（？）  
 ---@param c1 Card
 ---@param c2 Card
----@param new_attack? boolean
+---@param new_attack? boolean false
 function Duel.CalculateDamage(c1, c2, new_attack) end
 
 -- ●int Duel.GetBattleDamage(int player)  
@@ -686,7 +686,7 @@ function Duel.GetBattleDamage(player) end
 -- 把玩家player在本次战斗中受到的伤害变成value，若 check=false 则原本战斗伤害就算为0也改变伤害  
 ---@param player integer
 ---@param value integer
----@param check? boolean
+---@param check? boolean true
 function Duel.ChangeBattleDamage(player, value, check) end
 
 -- ●void Duel.ChangeTargetCard(int chainc, Group g)  
@@ -759,8 +759,8 @@ function Duel.CheckSummonedCount(c) end
 ---@param player integer
 ---@param location integer
 ---@param use_player? integer
----@param reason? integer
----@param zone? integer
+---@param reason? integer LOCATION_REASON_TOFIELD
+---@param zone? integer 0xff
 ---@return integer
 function Duel.GetLocationCount(player, location, use_player, reason, zone) end
 
@@ -769,18 +769,18 @@ function Duel.GetLocationCount(player, location, use_player, reason, zone) end
 ---@param player integer
 ---@param targets? Group | Card
 ---@param use_player? integer
----@param reason? integer
----@param zone? integer
+---@param reason? integer LOCATION_REASON_TOFIELD
+---@param zone? integer 0xff
 ---@return integer
 function Duel.GetMZoneCount(player, targets, use_player, reason, zone) end
 
 -- ●int Duel.GetLocationCountFromEx(int player[, int reason_player=player, Group|Card targets|nil, Card sc, int zone=0xff])  
 -- 返回玩家player场上[假如因玩家 reason_player 的原因让 targets 离场后，把卡片 sc 在 zone 区域特殊召唤]可用的 能让额外卡组的怪兽 出场的空格数  
 ---@param player integer
----@param reason_player? integer
+---@param reason_player? integer player
 ---@param targets? Group | Card
 ---@param sc? Card
----@param zone? integer
+---@param zone? integer 0xff
 ---@return integer
 function Duel.GetLocationCountFromEx(player, reason_player, targets, sc, zone) end
 
@@ -1030,14 +1030,14 @@ function Duel.SelectMatchingCard(sel_player, f, player, s, o, min, max, ex, ...)
 -- ●Group Duel.GetReleaseGroup(int player[, bool use_hand=false])  
 -- 返回玩家player可解放（非上级召唤用）的卡片组， use_hand=true 则包括手卡  
 ---@param player integer
----@param use_hand? boolean
+---@param use_hand? boolean false
 ---@return Group
 function Duel.GetReleaseGroup(player, use_hand) end
 
 -- ●integer Duel.GetReleaseGroupCount(int player[, bool use_hand=false])  
 -- 返回玩家player可解放（非上级召唤用）的卡片数量， use_hand=true 则包括手卡  
 ---@param player integer
----@param use_hand? boolean
+---@param use_hand? boolean false
 ---@return integer
 function Duel.GetReleaseGroupCount(player, use_hand) end
 
@@ -1099,7 +1099,7 @@ function Duel.GetTributeGroup(c) end
 -- 因为某些卡可以作为多个祭品来使用  
 ---@param c Card
 ---@param mg? Group
----@param ex? boolean
+---@param ex? boolean false
 ---@return integer
 function Duel.GetTributeCount(c, mg, ex) end
 
@@ -1107,10 +1107,10 @@ function Duel.GetTributeCount(c, mg, ex) end
 -- 判断场上[或mg中]是否存在用于通常召唤c[到toplayer场上的区域 zone]的min[到max]个祭品  
 ---@param c Card
 ---@param min integer
----@param max? integer
+---@param max? integer min|nil
 ---@param mg? Group
----@param toplayer? integer
----@param zone? integer
+---@param toplayer? integer c:GetControler()|nil
+---@param zone? integer 0x1f|nil
 ---@return Group
 function Duel.CheckTribute(c, min, max, mg, toplayer, zone) end
 
@@ -1121,7 +1121,7 @@ function Duel.CheckTribute(c, min, max, mg, toplayer, zone) end
 ---@param min integer
 ---@param max integer
 ---@param mg? Group
----@param toplayer? integer
+---@param toplayer? integer c:GetControler()|nil
 ---@return Group
 function Duel.SelectTribute(player, c, min, max, mg, toplayer) end
 
@@ -1168,7 +1168,7 @@ function Duel.SelectTarget(sel_player, f, player, s, o, min, max, ex, ...) end
 ---@param c Card
 ---@param g Group
 ---@param gc? Card
----@param chkf? integer
+---@param chkf? integer PLAYER_NONE
 ---@return Group
 function Duel.SelectFusionMaterial(player, c, g, gc, chkf) end
 
@@ -1411,7 +1411,7 @@ function Duel.HintSelection(g) end
 -- 让玩家player选择是否发动卡片c的效果[提示文字可以自行用desc替换，desc 用 Auxiliary.Stringid 获取]  
 ---@param player integer
 ---@param c Card
----@param desc? integer
+---@param desc? integer 95
 ---@return boolean
 function Duel.SelectEffectYesNo(player, c, desc) end
 
@@ -1508,8 +1508,8 @@ function Duel.AnnounceAttribute(player, count, available) end
 -- ●int Duel.AnnounceLevel(int player[, int min=1|nil, int max=12|nil, ...])  
 -- 让玩家宣言一个[min-max]等级并返回  
 ---@param player integer
----@param min? integer
----@param max? integer
+---@param min? integer 1|nil
+---@param max? integer 12|nil
 ---@param ...? any
 ---@return integer
 function Duel.AnnounceLevel(player, min, max, ...) end
@@ -1517,7 +1517,7 @@ function Duel.AnnounceLevel(player, min, max, ...) end
 -- ●int Duel.AnnounceCard(int player[, int type=(TYPE_MONSTER | TYPE_SPELL | TYPE_TRAP)])  
 -- 让玩家player宣言一个[type类型的]卡片代号（比如：禁止令）  
 ---@param player integer
----@param type? integer
+---@param type? integer (TYPE_MONSTER | TYPE_SPELL | TYPE_TRAP)
 ---@return integer
 function Duel.AnnounceCard(player, type) end
 
@@ -1537,7 +1537,7 @@ function Duel.AnnounceCardFilter(player, ...) end
 -- 让玩家player宣言一个卡片类型（怪兽·魔法·陷阱）  
 -- 别想着直接宣言 复合类型（永续魔法 等）  
 ---@param player integer
----@param antype? integer
+---@param antype? integer 70|71|72
 ---@return integer
 function Duel.AnnounceType(player, antype) end
 
@@ -1555,7 +1555,7 @@ function Duel.AnnounceNumber(player, number, ...) end
 -- ●int Duel.AnnounceCoin(int player[, int antype=60|61])  
 -- 让玩家player宣言硬币的正反面  
 ---@param player integer
----@param antype? integer
+---@param antype? integer 60|61
 ---@return integer
 function Duel.AnnounceCoin(player, antype) end
 
@@ -1571,13 +1571,13 @@ function Duel.TossCoin(player, count) end
 -- 返回值为count1+count2个结果，1-6  
 ---@param player integer
 ---@param count1 integer
----@param count2? integer
+---@param count2? integer 0
 ---@return ...
 function Duel.TossDice(player, count1, count2) end
 
 -- ●int Duel.RockPaperScissors([bool repeat_=true])  
 -- 猜拳，若 repeat=false 则只猜一次；否则就是直到分出胜负为止。返回胜利的玩家号码  
----@param repeat_? boolean
+---@param repeat_? boolean true
 ---@return integer
 function Duel.RockPaperScissors(repeat_) end
 
@@ -1624,7 +1624,7 @@ function Duel.IsPlayerAffectedByEffect(player, code) end
 -- ●bool Duel.IsPlayerCanDraw(int player[, int count=0])  
 -- 检查玩家player是否可以效果抽[count张]卡  
 ---@param player integer
----@param count? integer
+---@param count? integer 0
 ---@return boolean
 function Duel.IsPlayerCanDraw(player, count) end
 
@@ -1682,9 +1682,9 @@ function Duel.IsPlayerCanFlipSummon(player, c) end
 ---@param level? integer
 ---@param race? integer
 ---@param attribute? integer
----@param pos? integer
----@param target_player? integer
----@param sumtype? integer
+---@param pos? integer POS_FACEUP
+---@param target_player? integer player
+---@param sumtype? integer 0
 ---@return boolean
 function Duel.IsPlayerCanSpecialSummonMonster(player, code, setcode, type, atk, def, level, race, attribute, pos, target_player, sumtype) end
 
@@ -1878,7 +1878,7 @@ function Duel.DisableActionCheck(enabled) end
 
 -- ●void Duel.DisableSelfDestroyCheck([bool enabled=true])  
 -- 关闭卡片的自爆检查。不传参或传true为关闭，传false为启用自爆检查  
----@param enabled? boolean
+---@param enabled? boolean true
 function Duel.DisableSelfDestroyCheck(enabled) end
 
 -- ●void Duel.SetMetatable(Card|Group|Effect target, table mt)  

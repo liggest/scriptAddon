@@ -18,7 +18,7 @@ function Debug.Message(msg) end
 ---@param location integer
 ---@param seq integer
 ---@param pos integer
----@param proc? boolean
+---@param proc? boolean false
 ---@return Card
 function Debug.AddCard(code, owner, player, location, seq, pos, proc) end
 
@@ -35,7 +35,7 @@ function Debug.SetPlayerInfo(playerid, lp, startcount, drawcount) end
 -- 设置卡片c的召唤信息：以 sum_type 方法(通常召唤、特殊召唤等)[从 sum_location]出场  
 ---@param c Card
 ---@param sum_type integer
----@param sum_location? integer
+---@param sum_location? integer 0
 function Debug.PreSummon(c, sum_type, sum_location) end
 
 -- ●bool Debug.PreEquip(Card equip_card, Card target)  
@@ -55,7 +55,7 @@ function Debug.PreSetTarget(c, target) end
 -- 为c添加count个counter_type的指示物  
 ---@param c Card
 ---@param counter_type integer
----@param count? integer
+---@param count? integer 0
 function Debug.PreAddCounter(c, counter_type, count) end
 
 -- ●void Debug.ReloadFieldBegin(int flag[, int rule=3])  
@@ -64,7 +64,7 @@ function Debug.PreAddCounter(c, counter_type, count) end
 -- 		 大师1规则： DUEL_OBSOLETE_RULING  
 -- 	rule=4 是新大师规则  
 ---@param flag integer
----@param rule? integer
+---@param rule? integer 3
 function Debug.ReloadFieldBegin(flag, rule) end
 
 -- ●void Debug.ReloadFieldEnd()  

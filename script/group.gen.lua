@@ -128,8 +128,8 @@ function Group.Select(g, player, min, max, ex) end
 ---@param cg Group
 ---@param sg Group
 ---@param player integer
----@param btok boolean
----@param cancelable boolean
+---@param btok boolean false
+---@param cancelable boolean false
 ---@param minc integer
 ---@param maxc integer
 ---@return Card
@@ -163,7 +163,7 @@ function Group.IsExists(g, f, count, ex, ...) end
 ---@param g Group
 ---@param f function
 ---@param sum integer
----@param min integer
+---@param min integer 0
 ---@param max integer
 ---@param ... any
 ---@return boolean
