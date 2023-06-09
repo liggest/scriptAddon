@@ -233,7 +233,7 @@ function Group.GetMaxGroup(g, f, ...) end
 -- function GetSum(g,f,...)  
 -- 	local ct=0  
 -- 	local val={...}  
--- 	for tc in aux.Next(g)  
+-- 	for tc in Auxiliary.Next(g)  
 -- 		if f(tc,table.unpack(val)) then ct=ct+1 end  
 -- 	end  
 -- 	return ct  

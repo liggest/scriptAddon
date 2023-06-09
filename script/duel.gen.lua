@@ -1408,7 +1408,7 @@ function Duel.Hint(hint_type, player, desc) end
 function Duel.HintSelection(g) end
 
 -- ●bool Duel.SelectEffectYesNo(int player, Card c[, int desc=95])  
--- 让玩家player选择是否发动卡片c的效果[提示文字可以自行用desc替换，desc 用 aux.Stringid 获取]  
+-- 让玩家player选择是否发动卡片c的效果[提示文字可以自行用desc替换，desc 用 Auxiliary.Stringid 获取]  
 ---@param player integer
 ---@param c Card
 ---@param desc? integer
