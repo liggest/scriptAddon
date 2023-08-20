@@ -5,7 +5,7 @@ Effect = require("effect")
 Group = require("group")
 Duel = require("duel")
 Debug = require("library.debug")
-Auxiliary = require("auxiliary")
+Auxiliary = require("aux_")
 aux = Auxiliary
 
 ---@alias TargetFun fun(e,tp,eg,ep,ev,re,r,rp,chk)
