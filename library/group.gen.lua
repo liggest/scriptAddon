@@ -227,7 +227,7 @@ function Group.GetMaxGroup(g, f, ...) end
 -- function GetSum(g,f,...)  
 -- 	local ct=0  
 -- 	local val={...}  
--- 	for tc in Auxiliary.Next(g)  
+-- 	for tc in aux.Next(g)  
 -- 		if f(tc,table.unpack(val)) then ct=ct+1 end  
 -- 	end  
 -- 	return ct  
@@ -333,5 +333,20 @@ function Group.__band(target1, target2) end
 ---@param target2 Group | Card
 ---@return Group
 function Group.__bxor(target1, target2) end
+
+-- ●Group Group.SelectSubGroup(Group g, int tp, function f, bool cancelable, int min, int max,...)  
+-- 让玩家从g里选择多张不同的卡，直到满足条件为止。  
+-- 每次选卡，都会把已经选中的卡以f(sg,...)的形式传给f。  
+-- 如果返回true，则表示选卡结束，此函数返回选好的Group。  
+-- cancelable如果为true，则玩家可以中途放弃，停止选卡。此时此函数返回nil。  
+---@param g Group
+---@param tp integer
+---@param f function
+---@param cancelable boolean
+---@param min integer
+---@param max integer
+---@param ... any
+---@return Group
+function Group.SelectSubGroup(g, tp, f, cancelable, min, max, ...) end
 
 return Group

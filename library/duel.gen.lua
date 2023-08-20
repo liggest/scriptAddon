@@ -1334,7 +1334,7 @@ function Duel.RemoveOverlayCard(player, s, o, min, max, reason) end
 function Duel.HintSelection(g) end
 
 -- ●bool Duel.SelectEffectYesNo(int player, Card c[, int desc=95])  
--- 让玩家player选择是否发动卡片c的效果[提示文字可以自行用desc替换，desc 用 Auxiliary.Stringid 获取]  
+-- 让玩家player选择是否发动卡片c的效果[提示文字可以自行用desc替换，desc 用 aux.Stringid 获取]  
 ---@param player integer
 ---@param c Card
 ---@param desc? integer 95
@@ -1902,5 +1902,17 @@ function Duel.IsPlayerCanSSet(player, scard) end
 ---@param player integer
 ---@return boolean
 function Duel.IsPlayerCanAdditionalSummon(player) end
+
+-- ●bool Duel.IsPlayerCanDiscardDeckAsCost(int player, int count)  
+-- 检查玩家player是否能作为Cost把count张卡送去墓地。  
+---@param player integer
+---@param count integer
+---@return boolean
+function Duel.IsPlayerCanDiscardDeckAsCost(player, count) end
+
+-- ●bool Duel.AdjustAll()  
+-- 立刻刷新场地信息。  
+---@return boolean
+function Duel.AdjustAll() end
 
 return Duel

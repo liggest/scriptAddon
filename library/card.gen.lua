@@ -1948,4 +1948,54 @@ function Card.IsLinkSummonable(c, mg, min, max) end
 ---@return boolean
 function Card.IsCanOverlay(c) end
 
+-- ●bool Card.IsTuner(Card c)  
+-- 检查c是否是调整怪兽。  
+-- 除了检查TYPE_TUNER以外，还会检查其身上所有能让其变为调整怪兽的效果。  
+---@param c Card
+---@return boolean
+function Card.IsTuner(c) end
+
+-- ●bool Card.IsSpecialSummonableCard(Card c)  
+-- 检查c是否能以正规方法特殊召唤。  
+-- c必须有可特殊召唤的方式。  
+---@param c Card
+---@return boolean
+function Card.IsSpecialSummonableCard(c) end
+
+-- ●bool Card.IsCanBeDisabledByEffect(Card c, Effect e[, bool isMonsterEffect])  
+-- 检查c的效果是否能被e无效。  
+-- 已经被无效的卡，或原本就没有效果的卡，或不受e影响的卡不能被无效。  
+-- 第三个参数可选，指示其是否为怪兽效果。  
+---@param c Card
+---@param e Effect
+---@param isMonsterEffect? boolean
+---@return boolean
+function Card.IsCanBeDisabledByEffect(c, e, isMonsterEffect) end
+
+-- ●bool Card.IsCanBeDisabledByEffect(Card c, Effect e[, bool isMonsterEffect])  
+-- 检查c的效果是否能被e无效。  
+-- 已经被无效的卡，或原本就没有效果的卡，或不受e影响的卡不能被无效。  
+-- 第三个参数可选，指示其是否为怪兽效果。  
+---@param c Card
+---@param e Effect
+---@param isMonsterEffect? boolean
+---@return boolean
+function Card.IsCanBeDisabledByEffect(c, e, isMonsterEffect) end
+
+-- ●int Card.GetAttributeInGrave(Card c[, int reasonPlayer])  
+-- 检查c在墓地中会变成什么属性。  
+-- 第二个参数可选，指示假设送去墓地是由于哪个玩家。  
+---@param c Card
+---@param reasonPlayer? integer
+---@return integer
+function Card.GetAttributeInGrave(c, reasonPlayer) end
+
+-- ●int Card.GetRaceInGrave(Card c[, int reasonPlayer])  
+-- 检查c在墓地中会变成什么种族。  
+-- 第二个参数可选，指示假设送去墓地是由于哪个玩家。  
+---@param c Card
+---@param reasonPlayer? integer
+---@return integer
+function Card.GetRaceInGrave(c, reasonPlayer) end
+
 return Card
