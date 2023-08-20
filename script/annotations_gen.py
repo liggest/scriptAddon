@@ -226,7 +226,9 @@ class LuaClass:
 
     def __init__(self, name:str):
         self.name = name.strip("=").strip()
-        self.path = LIBRARY / f"{self.name.lower()}.gen.lua"
+        if (filename := self.name.lower()) == "aux":
+            filename = f"{filename}_"
+        self.path = LIBRARY / f"{filename}.gen.lua"
         self.functions:deque[LuaFunction] = deque()
         self._customed_functions:set = None  # 被手动标注过的函数
 
