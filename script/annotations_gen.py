@@ -226,8 +226,6 @@ class LuaClass:
 
     def __init__(self, name:str):
         self.name = name.strip("=").strip()
-        if self.name == "aux":
-            self.name = "Auxiliary"  # 特例
         self.path = LIBRARY / f"{self.name.lower()}.gen.lua"
         self.functions:deque[LuaFunction] = deque()
         self._customed_functions:set = None  # 被手动标注过的函数
