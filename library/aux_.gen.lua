@@ -82,7 +82,7 @@ function aux.SetUnionState(c) end
 ---@return boolean
 function aux.CheckUnionEquip(uc, tc) end
 
--- ●function Auxiliary.TargetEqualFunction(function f, any value, ...)  
+-- ●function aux.TargetEqualFunction(function f, any value, ...)  
 -- 一般用在效果注册里,返回的是一个 有 bool 返回值类型的 函数，第3个参数开始为额外参数  
 -- function Auxiliary.TargetEqualFunction(f,value,...)  
 -- 	local ext_params={...}  
@@ -94,9 +94,9 @@ function aux.CheckUnionEquip(uc, tc) end
 ---@param value any
 ---@param ... any
 ---@return function
-function Auxiliary.TargetEqualFunction(f, value, ...) end
+function aux.TargetEqualFunction(f, value, ...) end
 
--- ●function Auxiliary.TargetBoolFunction(function f,...)  
+-- ●function aux.TargetBoolFunction(function f,...)  
 -- 一般用在效果注册里,返回的是一个 有 bool 返回值类型的 函数，第2个参数开始为额外参数  
 -- function Auxiliary.TargetBoolFunction(f,...)  
 -- 	local ext_params={...}  
@@ -107,7 +107,7 @@ function Auxiliary.TargetEqualFunction(f, value, ...) end
 ---@param f function
 ---@param ... any
 ---@return function
-function Auxiliary.TargetBoolFunction(f, ...) end
+function aux.TargetBoolFunction(f, ...) end
 
 -- ●function aux.FilterEqualFunction(function f, any value, ...)  
 -- 用于过滤满足单一过滤条件 f ,且值为 value 的卡,,返回的是一个 有 bool 返回值类型的 函数， 第3个参数开始为额外参数  
@@ -152,10 +152,10 @@ function aux.Tuner(f, ...) end
 ---@return function
 function aux.NonTuner(f, ...) end
 
--- ●Card|Group|Effect|int|bool|string|nil|function|table|any aux.GetValueType(any value)  
+-- ●"Card"|"Group"|"Effect"|int|bool|string|nil|function|table|any aux.GetValueType(any value)  
 -- 返回 value 在lua中的type  
 ---@param value any
----@return Card | Group | Effect | integer | boolean | string | nil | function | table | any
+---@return "Card" | "Group" | "Effect" | integer | boolean | string | nil | function | table | any
 function aux.GetValueType(value) end
 
 -- ●Group aux.GetMustMaterialGroup(int player , int code)  
@@ -268,18 +268,18 @@ function aux.AddXyzProcedureLevelFree(c, f, gf, minc, maxc, alterf, desc, op) en
 ---@param ... any
 function aux.AddFusionProcMix(c, sub, insf, ...) end
 
--- ●void aux.AddFusionProcMixRep(Card c, bool sub, bool insf, function|int code1, int minc, int maxc, ...)  
+-- ●void aux.AddFusionProcMixRep(Card c, bool sub, bool insf, function|int f1_or_code1, int minc, int maxc, ...)  
 -- 为c 添加融合召唤手续  
 -- 用满足f1 的怪兽 minc-maxc 只，和 额外参数里 各1只的怪兽为融合素材,  
 -- 额外参数的类型 可以是 function 或者 卡密(int code),传入 code 相当于传入 function(code) return c:IsFusionCode(code) end  
 ---@param c Card
 ---@param sub boolean
 ---@param insf boolean
----@param code1 function | integer
+---@param f1_or_code1 function | integer
 ---@param minc integer
 ---@param maxc integer
 ---@param ... any
-function aux.AddFusionProcMixRep(c, sub, insf, code1, minc, maxc, ...) end
+function aux.AddFusionProcMixRep(c, sub, insf, f1_or_code1, minc, maxc, ...) end
 
 -- ●void aux.AddFusionProcCode2(Card c, int code1, int code2, bool sub, bool insf)  
 -- 为c 添加融合召唤手续  
@@ -495,11 +495,11 @@ function aux.AddRitualProcEqual2Code(c, code) end
 ---@param code2 integer
 function aux.AddRitualProcEqual2Code2(c, code1, code2) end
 
--- ●void aux.EnablePendulumAttribute(Card c[, active_effect=true])  
+-- ●void aux.EnablePendulumAttribute(Card c[, bool active_effect=true])  
 -- 为灵摆怪兽c添加灵摆怪兽属性（灵摆召唤，灵摆卡的发动）  
 -- active_effect=false则不注册灵摆卡“卡的发动”的效果  
 ---@param c Card
----@param active_effect? any true
+---@param active_effect? boolean true
 function aux.EnablePendulumAttribute(c, active_effect) end
 
 -- ●void aux.EnableReviveLimitPendulumSummonable(Card c[, int location=0xff])  
@@ -671,12 +671,7 @@ function aux.dogcon(e, tp, eg, ep, ev, re, r, rp) end
 function aux.exccon(e) end
 
 -- ●bool aux.chainreg(Effect e, int tp, Group eg, int ep, int ev, Effect re, int r, int rp)  
--- 死亡魔导龙(81059524)用了此函数，其实就是相当于  
--- function aux.chainreg(e,tp,eg,ep,ev,re,r,rp)  
--- 	if e:GetHandler():GetFlagEffect(1)==0 then  
--- 		e:GetHandler():RegisterFlagEffect(1,RESET_EVENT+RESETS_STANDARD-RESET_TURN_SET+RESET_CHAIN,0,1)  
--- 	end  
--- end  
+-- 用于记录连锁发生时这张卡在场上存在  
 ---@param e Effect
 ---@param tp integer
 ---@param eg Group
@@ -761,18 +756,7 @@ function aux.nzatk(c) end
 function aux.nzdef(c) end
 
 -- ●bool aux.sumreg(Effect e, int tp, Group eg, int ep, int ev, Effect re, int r, int rp)  
--- 妖仙兽 阎魔巳裂(39853199)和一些其他卡(49249907,93368494)用了此函数，不过此函数★意★义★不★明★。  
--- 54109233 虽然没用此函数，但是用了一样的写法，同样是★意★义★不★明★，其实就是相当于  
--- function aux.sumreg(e,tp,eg,ep,ev,re,r,rp)  
--- 	local tc=eg:GetFirst()  
--- 	local code=e:GetLabel()  
--- 	while tc do  
--- 		if tc:GetOriginalCode()==code then  
--- 			tc:RegisterFlagEffect(code,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_END,0,1)  
--- 		end  
--- 		tc=eg:GetNext()  
--- 	end  
--- end  
+-- 用于处理“这张卡召唤的回合”的效果(混沌幻影复制这种效果即使是这个回合召唤的也不能生效)  
 ---@param e Effect
 ---@param tp integer
 ---@param eg Group
@@ -1033,7 +1017,7 @@ function aux.PlaceCardsOnDeckBottom(p, g, reason) end
 ---@return boolean
 function aux.AtkEqualsDef(c) end
 
--- ●bool aux.SelectFromOptions(int tp,...)  
+-- ●int aux.SelectFromOptions(int tp,...)  
 -- 让玩家选择选项。  
 -- 第二个数值以后每个数值都应当是一个table：  
 -- table的第一个数值是一个bool值，指示此选项是否有效。  
@@ -1045,7 +1029,7 @@ function aux.AtkEqualsDef(c) end
 -- 	{true,aux.Stringid(11654067,2)})  
 ---@param tp integer
 ---@param ... any
----@return boolean
+---@return integer
 function aux.SelectFromOptions(tp, ...) end
 
 return aux

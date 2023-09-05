@@ -116,8 +116,8 @@ function Group.FilterSelect(g, player, f, min, max, ex, ...) end
 function Group.Select(g, player, min, max, ex) end
 
 -- ●Card Group.SelectUnselect(Group cg, Group sg, int player, bool btok=false, bool cancelable=false, int minc, int maxc)  
--- 让玩家 player 从 cg 中选择 1 张卡放入 sg ，并返回选的卡。  
--- btok 表示是否可以点击完成选择的按钮， cancelable 表示是否可以取消已选择的卡，  
+-- 让玩家 player 从 未选择的卡 cg 或 已选择的卡 sg 中选择 1 张卡，并返回选的卡。  
+-- btok 表示是否可以点击完成选择的按钮， cancelable 表示是否可以取消(返回 nil)，  
 -- minc 和 maxc 是客户端的文字缓冲提示，表示需要选择 minc-maxc 张卡，但是这个只是影响视觉效果，并不代表必须要选择那个数量  
 ---@param cg Group
 ---@param sg Group
@@ -334,7 +334,7 @@ function Group.__band(target1, target2) end
 ---@return Group
 function Group.__bxor(target1, target2) end
 
--- ●Group Group.SelectSubGroup(Group g, int tp, function f, bool cancelable, int min, int max,...)  
+-- ●Group Group.SelectSubGroup(Group g, int tp, function f, bool cancelable, int min, int max, ...)  
 -- 让玩家从g里选择多张不同的卡，直到满足条件为止。  
 -- 每次选卡，都会把已经选中的卡以f(sg,...)的形式传给f。  
 -- 如果返回true，则表示选卡结束，此函数返回选好的Group。  

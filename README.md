@@ -116,8 +116,8 @@ Further revise is generally needed. Please refer to [the document of annotations
 
 Put revised annotations for classes in `library/class_name.lua`, and run `script/annotations_gen.py` again
 
-[Addons]: https://github.com/LuaLS/lua-language-server/wiki/Addons
-[Annotation]: https://github.com/LuaLS/lua-language-server/wiki/Annotations/
+[Addons]: https://luals.github.io/wiki/addons/
+[Annotation]: https://luals.github.io/wiki/annotations/
 [LuaExtension]: https://marketplace.visualstudio.com/items?itemName=sumneko.lua
 [scripts]: https://github.com/Fluorohydride/ygopro-scripts
 [functions]: https://github.com/liggest/scriptAddon/blob/main/script/_functions.txt

@@ -4,20 +4,20 @@
 local Card = {}
 
 -- ●int[,int] Card.GetCode(Card c)  
--- 返回c的当前代号（可能因为效果改变）  
+-- 返回c的当前卡号（可能因为效果改变）  
 ---@param c Card
 ---@return integer
 ---@return integer | nil
 function Card.GetCode(c) end
 
 -- ●int Card.GetOriginalCode(Card c)  
--- 返回c的卡片记载的代号  
+-- 返回c的卡片记载的卡号  
 ---@param c Card
 ---@return integer
 function Card.GetOriginalCode(c) end
 
 -- ●int,int Card.GetOriginalCodeRule(Card c)  
--- 返回c规则上的代号（这张卡规则上当作...使用）  
+-- 返回c规则上的卡号（这张卡规则上当作...使用）  
 ---@param c Card
 ---@return integer
 ---@return integer

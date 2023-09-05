@@ -4,11 +4,15 @@
 
     // Lua string patterns to look for in a workspace.
     // If detected, this addon will be recommended to enable
-    // "words": [ "function %w+%.initial_effect%(c%)" ],
+    "words": [ 
+        "function %w+%.initial_effect%(c%)", // card script
+        "function %w+%.PreloadUds%(%)",      // rule script
+        "aux.BeginPuzzle()"                  // single script
+    ],
 
     // Lua string patterns to look for in filenames.
     // If detected, this addon will be recommended to enable
-    "files": ["c%d+%.lua", "constant%.lua", "utility%.lua"],
+    "files": ["c%d+.lua", "definition.lua", "constant.lua", "utility.lua", "special.lua"],
 
     // List of settings to apply when this addon is enabled
     "settings": {

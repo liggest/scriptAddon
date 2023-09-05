@@ -95,7 +95,7 @@ function Duel.SetFlagEffectLabel(player, code, label) end
 ---@return integer
 function Duel.GetFlagEffectLabel(player, code) end
 
--- ●int Duel.Destroy(Card|Group targets, int reason[ ,int dest = LOCATION_GRAVE])  
+-- ●int Duel.Destroy(Card|Group targets, int reason[, int dest = LOCATION_GRAVE])  
 -- 以reason原因破坏targets去dest，返回值是实际被破坏的数量  
 -- 如果reason包含REASON_RULE，则破坏事件将不会检查卡片是否免疫效果，  
 -- 不会触发代破效果并且无视“不能破坏”  
@@ -177,14 +177,14 @@ function Duel.SpecialSummonRule(player, c, sumtype) end
 ---@param mg? Group
 function Duel.SynchroSummon(player, c, tuner, mg) end
 
--- ●void Duel.XyzSummon(int player, Card c, Group mg|nil[, min=0, max=0])  
+-- ●void Duel.XyzSummon(int player, Card c, Group mg|nil[, int min=0, int max=0])  
 -- 让玩家player用场上的卡[或mg][选min-max个素材]对c进行XYZ召唤手续  
 -- mg非空且min为0则直接把mg全部作为XYZ素材  
 ---@param player integer
 ---@param c Card
 ---@param mg? Group
----@param min? any 0
----@param max? any 0
+---@param min? integer 0
+---@param max? integer 0
 function Duel.XyzSummon(player, c, mg, min, max) end
 
 -- ●void Duel.MSet(int player, Card c, bool ignore_count, Effect e|nil[,int min=0, int zone=0x1f])  
@@ -468,16 +468,16 @@ function Duel.RaiseSingleEvent(eg, code, re, r, rp, ep, ev) end
 function Duel.CheckTiming(timing) end
 
 -- ●int,int Duel.GetEnvironment()  
--- 返回两个值，表示当前场地代号，以及当前场地效果的来源玩家  
--- 场地代号指当前生效的场地卡的代号，或者海神的巫女等卡把场地变化效果的值  
+-- 返回两个值，表示当前场地卡号，以及当前场地效果的来源玩家  
+-- 场地卡号指当前生效的场地卡的卡号，或者海神的巫女等卡把场地变化效果的值  
 -- 来源玩家指当前生效的场地卡的控制者，或者海神的巫女等卡的控制者  
 ---@return integer
 ---@return integer
 function Duel.GetEnvironment() end
 
 -- ●bool Duel.IsEnvironment(int code[, int player=PLAYER_ALL, int loc = LOCATION_FZONE + LOCATION_ONFIELD])  
--- 检查场地代号是否是code [，来源玩家是否是 player][，生效区域是否在 loc 内]  
--- 场地代号指当前生效的场地卡的代号，或者海神的巫女把场地变化效果的值  
+-- 检查场地卡号是否是code [，来源玩家是否是 player][，生效区域是否在 loc 内]  
+-- 场地卡号指当前生效的场地卡的卡号，或者海神的巫女把场地变化效果的值  
 -- 来源玩家指当前生效的场地卡的控制者，或者海神的巫女等卡的控制者  
 ---@param code integer
 ---@param player? integer PLAYER_ALL
@@ -989,7 +989,7 @@ function Duel.GetFirstMatchingCard(f, player, s, o, ex, ...) end
 ---@return Group
 function Duel.GetReleaseGroup(player, use_hand) end
 
--- ●integer Duel.GetReleaseGroupCount(int player[, bool use_hand=false])  
+-- ●int Duel.GetReleaseGroupCount(int player[, bool use_hand=false])  
 -- 返回玩家player可解放（非上级召唤用）的卡片数量， use_hand=true 则包括手卡  
 ---@param player integer
 ---@param use_hand? boolean false
@@ -1213,9 +1213,7 @@ function Duel.ReleaseRitualMaterial(g) end
 function Duel.GetFusionMaterial(player) end
 
 -- ●void Duel.SetSelectedCard(Card|Group cards)  
--- 将准备由Duel.GrabSelectedCard读取的卡片/卡片组设置为cards。  
--- 单独使用没有意义，要配合Duel.GrabSelectedCard来读取。  
--- 用于多个函数先后使用，又无法相互传递数据时的参数传递。  
+-- 设置Duel.CheckWithSum，Group.CheckSubGroup等函数已选择/必须选择的卡片  
 ---@param cards Card | Group
 function Duel.SetSelectedCard(cards) end
 
@@ -1441,14 +1439,14 @@ function Duel.AnnounceAttribute(player, count, available) end
 function Duel.AnnounceLevel(player, min, max, ...) end
 
 -- ●int Duel.AnnounceCard(int player[, int type=(TYPE_MONSTER | TYPE_SPELL | TYPE_TRAP)])  
--- 让玩家player宣言一个[type类型的]卡片代号（比如：禁止令）  
+-- 让玩家player宣言一个[type类型的]卡片卡号（比如：禁止令）  
 ---@param player integer
 ---@param type? integer (TYPE_MONSTER | TYPE_SPELL | TYPE_TRAP)
 ---@return integer
 function Duel.AnnounceCard(player, type) end
 
 -- ●int Duel.AnnounceCardFilter(int player, ...)  
--- 让玩家player宣言一个满足条件的卡片代号，条件是额外参数，并且都是 int 类型，用于宣言某些特定范围的卡  
+-- 让玩家player宣言一个满足条件的卡片卡号，条件是额外参数，并且都是 int 类型，用于宣言某些特定范围的卡  
 -- 例如：虚空俏丽魔术师  
 -- c28776350.announce_filter={TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ+TYPE_LINK,OPCODE_ISTYPE,OPCODE_NOT}  
 -- local ac=Duel.AnnounceCardFilter(tp,table.unpack(c28776350.announce_filter))  
@@ -1596,7 +1594,7 @@ function Duel.IsPlayerCanSpecialSummon(player, sumtype, sumpos, target_player, c
 ---@return boolean
 function Duel.IsPlayerCanFlipSummon(player, c) end
 
--- ●bool Duel.IsPlayerCanSpecialSummonMonster(int player, int code[, int setcode|nil, int type|nil, int atk|nil, int def|nil, int level|nil, int race|nil, int attribute|nil, int  pos=POS_FACEUP, int target_player=player, int sumtype=0])  
+-- ●bool Duel.IsPlayerCanSpecialSummonMonster(int player, int code[, int setcode|nil, int type|nil, int atk|nil, int def|nil, int level|nil, int race|nil, int attribute|nil, int pos=POS_FACEUP, int target_player=player, int sumtype=0])  
 -- 检查玩家player是否可以[以sumtype 方式][以 pos 表示形式]特殊召唤 给定参数的怪兽到target_player场上  
 -- 此函数通常用于判定是否可以特招token和陷阱怪兽  
 ---@param player integer
@@ -1870,10 +1868,10 @@ function Duel.GetBattleMonster(player) end
 ---@return boolean
 function Duel.IsSummonCancelable() end
 
--- ●Card|Group Duel.GrabSelectedCard()  
--- 返回由Duel.SetSelectedCard设置的卡片或卡片组。  
--- 单独使用没有意义，必须先用Duel.SetSelectedCard进行设置。  
----@return Card | Group
+-- ●Group Duel.GrabSelectedCard()  
+-- 清空并返回由Duel.SetSelectedCard设置的卡片或卡片组。  
+-- 一般先用Duel.SetSelectedCard进行设置。  
+---@return Group
 function Duel.GrabSelectedCard() end
 
 -- ●void Duel.ClearOperationInfo(int chainc)  
@@ -1910,9 +1908,8 @@ function Duel.IsPlayerCanAdditionalSummon(player) end
 ---@return boolean
 function Duel.IsPlayerCanDiscardDeckAsCost(player, count) end
 
--- ●bool Duel.AdjustAll()  
+-- ●void Duel.AdjustAll()  
 -- 立刻刷新场地信息。  
----@return boolean
 function Duel.AdjustAll() end
 
 return Duel
