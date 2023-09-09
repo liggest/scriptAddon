@@ -1,0 +1,157 @@
+{
+	// Place your workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"cXXXXXX To File Name": {
+		"scope": "lua",
+		"prefix": ["cXXXXXXXXX", "cxxxxxxxxx"],
+		"body": [
+			"$TM_FILENAME_BASE"
+		],
+		"description": "当前文件名"
+	},
+	"Condition Function": {
+		"scope": "lua",
+		"prefix": ["con", "cond"],
+		"body": [
+			"---@param e Effect",
+			"---@param tp Player",
+			"---@param eg Group?",
+			"---@param ep Player",
+			"---@param ev integer",
+			"---@param re Effect?",
+			"---@param r integer",
+			"---@param rp Player",
+			"---@return boolean",
+			"function ${1|s,cXXXXXXXXX|}.${2|con,condition,cond|}(e,tp,eg,ep,ev,re,r,rp)",
+			"\t$0",
+			"end"
+		],
+		"description": "新 Condition 函数"
+	},
+	"Cost Function": {
+		"scope": "lua",
+		"prefix": "cost",
+		"body": [
+			"---@param e Effect",
+			"---@param tp Player",
+			"---@param eg Group?",
+			"---@param ep Player",
+			"---@param ev integer",
+			"---@param re Effect?",
+			"---@param r integer",
+			"---@param rp Player",
+			"---@param chk 0?",
+			"---@return boolean?",
+			"function ${1|s,cXXXXXXXXX|}.${2:cost}(e,tp,eg,ep,ev,re,r,rp,chk)",
+			"\t$0",
+			"end"
+		],
+		"description": "新 Cost 函数"
+	},
+	"Target Function": {
+		"scope": "lua",
+		"prefix": ["tg", "target", "tgt"],
+		"body": [
+			"---@param e Effect",
+			"---@param tp Player",
+			"---@param eg Group?",
+			"---@param ep Player",
+			"---@param ev integer",
+			"---@param re Effect?",
+			"---@param r integer",
+			"---@param rp Player",
+			"---@param chk 0?",
+			"---@param chkc Card?",
+			"---@return boolean?",
+			"function ${1|s,cXXXXXXXXX|}.${2|tg,target,tgt|}(e,tp,eg,ep,ev,re,r,rp,chk,chkc)",
+			"\t$0",
+			"end"
+		],
+		"description": "新 Target 函数"
+	},
+	"Operation Function": {
+		"scope": "lua",
+		"prefix": ["op", "operation", "opt"],
+		"body": [
+			"---@param e Effect",
+			"---@param tp Player",
+			"---@param eg Group?",
+			"---@param ep Player",
+			"---@param ev integer",
+			"---@param re Effect?",
+			"---@param r integer",
+			"---@param rp Player",
+			"---@return boolean?",
+			"function ${1|s,cXXXXXXXXX|}.${2|op,operation,opt|}(e,tp,eg,ep,ev,re,r,rp)",
+			"\t$0",
+			"end"
+		],
+		"description": "新 Operation 函数"
+	},
+	"Filter Function": {
+		"scope": "lua",
+		"prefix": "filter",
+		"body": [
+			"---@param c Card",
+			"---@return boolean",
+			"function ${1|s,cXXXXXXXX|}.${2:filt}(c$3)",
+			"\t$0",
+			"end"
+		],
+		"description": "新 Filter 函数"
+	},
+	"Card Script Template": {
+		"scope": "lua",
+		"prefix": "init card",
+		"body": [
+			"--${2:卡名}",
+			"--${3:Card Name}",
+			"--coded by ${4:Knight of Hanoi}",
+			"--${5:$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE}",
+			"local s,id,o=GetID()",
+			"function s.initial_effect(c)",
+			"\t$1$0"
+			"end"
+		],
+		"description": "卡片脚本模板"
+	},
+	"Single Script Template": {
+		"scope": "lua",
+		"prefix": "init single",
+		"body": [
+			"Debug.SetAIName(\"${1:高性能电子头脑}\")",
+			"Debug.ReloadFieldBegin(DUEL_ATTACK_FIRST_TURN+DUEL_SIMPLE_AI)",
+			"local tp=0",
+			"Debug.SetPlayerInfo(tp,${2:8000},0,0)\t--player",
+			"Debug.SetPlayerInfo(1-tp,${3:8000},0,0)\t--AI",
+			"",
+			"$0",
+			"",
+			"Debug.ReloadFieldEnd()",
+			"Debug.ShowHint(\"${4:Game Start!}\")",
+			"aux.BeginPuzzle()",
+		],
+		"description": "残局脚本模板"
+	},
+	"Special Script Template": {
+		"scope": "lua",
+		"prefix": "init special.lua",
+		"body": [
+			"local ${1:MyRule} = {}",
+			"",
+			"function ${1:MyRule}.${2:Init}()",
+			"\t$0",
+			"end",
+			"",
+			"function aux.PreloadUds()",
+			"\t${1:MyRule}.${2:Init}()",
+			"end"
+		],
+		"description": "规则脚本（special.lua）模板"
+	},
+}

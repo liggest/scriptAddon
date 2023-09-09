@@ -11,17 +11,22 @@
 ## 如何使用
 
 - 安装 [lua 扩展][LuaExtension]
-- 编辑项目目录（工作区）下的扩展设置
+- 编辑自己项目（工作区）下的扩展设置
 
     例：`.vscode/settings.json`
 
     ```JSON
     {
         "Lua.workspace.userThirdParty": [
-            "路径/直到/scriptAddon的父目录"
+            "路径/直到/scriptAddon的【父目录】"
         ],
+        // 如果注解未生效，手动指定其位置
         "Lua.workspace.library": [
             "路径/直到/scriptAddon/library"
+        ],
+        // 不想看警告的话可以用 Lua.diagnostics.disable 屏蔽一些
+        "Lua.diagnostics.disable": [
+            "inject-field"
         ]
     }
     ```
@@ -32,7 +37,7 @@
     ```lua
     ---@meta
 
-    ---@type Card
+    ---@type CardTable
     cXXXXXXXXX = {}
     ```
     例：`cXXXXXXXXX.lua`
@@ -43,6 +48,12 @@
     function cXXXXXXXXX.filter(c) ... end
     ```
 
+- 【可选】添加更多补全片段（Snippets）
+  
+    复制仓库的 [`.vscode/ygo.code-snippets`][Snippets] 到自己项目的 `.vscode` 中
+
+    在 lua 文件中尝试对诸如 `init card`、`tg`、`op` 等的补全
+
 ## 标注
 
 生成原始标注
@@ -51,7 +62,7 @@
 python script/annotations_gen.py
 ```
 
-会生成 `library/*.gen.lua`
+会生成 `library/类名.gen.lua`
 
 若需要进一步改进标注，请参考 [标注文档][Annotation]
 
@@ -70,17 +81,22 @@ Attempt to add [annotations][Annotation] for [card scripts in ygopro][scripts] b
 ## Usage
 
 - Install [the lua extension][LuaExtension]
-- Edit settings of the extension in script project folder (workspace)
+- Edit settings of the extension in your script project (workspace)
 
     Example `.vscode/settings.json`
 
     ```JSON
     {
         "Lua.workspace.userThirdParty": [
-            "path/to/parent directory of scriptAddon"
+            "path/to/*parent* directory of scriptAddon"
         ],
+        // If the annotations does not work, manually specify its location
         "Lua.workspace.library": [
             "path/to/scriptAddon/library"
+        ],
+        // Add items to "Lua.diagnostics.disable" to disable some warnings
+        "Lua.diagnostics.disable": [
+            "inject-field"
         ]
     }
     ```
@@ -91,7 +107,7 @@ Attempt to add [annotations][Annotation] for [card scripts in ygopro][scripts] b
     ```lua
     ---@meta
 
-    ---@type Card
+    ---@type CardTable
     cXXXXXXXXX = {}
     ```
     Example `cXXXXXXXXX.lua`
@@ -102,6 +118,12 @@ Attempt to add [annotations][Annotation] for [card scripts in ygopro][scripts] b
     function cXXXXXXXXX.filter(c) ... end
     ```
 
+- (Optional) Add more snippets
+  
+    Copy [`.vscode/ygo.code-snippets`][Snippets] into `.vscode` of your script project
+
+    Try `init card`, `tg`, `op` in lua files
+
 ## Annotating
 
 For raw annotation generation
@@ -110,7 +132,7 @@ For raw annotation generation
 python script/annotations_gen.py
 ```
 
-This script will generate `library/*.gen.lua`
+This script will generate `library/class_name.gen.lua`
 
 Further revise is generally needed. Please refer to [the document of annotations][Annotation]
 
@@ -122,3 +144,4 @@ Put revised annotations for classes in `library/class_name.lua`, and run `script
 [scripts]: https://github.com/Fluorohydride/ygopro-scripts
 [functions]: https://github.com/liggest/scriptAddon/blob/main/script/_functions.txt
 [functions_origin]: https://code.mycard.moe/nanahira/DataEditorX/-/blob/master/DataEditorX/data/_functions.txt
+[Snippets]: https://github.com/liggest/scriptAddon/blob/main/.vscode/ygo.code-snippets
