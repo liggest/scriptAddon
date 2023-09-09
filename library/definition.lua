@@ -8,22 +8,19 @@ Debug = require("library.debug")
 Auxiliary = require("aux_")
 aux = Auxiliary
 
----@alias TargetFun fun(e,tp,eg,ep,ev,re,r,rp,chk)
+require("utility")
 
----@alias OperationFun fun(e,tp,eg,ep,ev,re,r,rp)
+---@alias Player
+---| 0 # 玩家 0
+---| 1 # 玩家 1
 
----@alias FilterFun fun(c:Card, ...)
+---@alias ConditionFun fun(e:Effect, tp:Player, eg:Group?, ep:Player, ev:integer, re:Effect?, r:integer, rp:Player) : boolean
 
+---@alias CostFun fun(e:Effect, tp:Player, eg:Group?, ep:Player, ev:integer, re:Effect?, r:integer, rp:Player, chk: 0?) : boolean?
 
-POS_FACEUP_DEFENCE = POS_FACEUP_DEFENSE
-POS_FACEDOWN_DEFENCE = POS_FACEDOWN_DEFENSE
-RACE_CYBERS = RACE_CYBERSE
+---@alias TargetFun fun(e:Effect, tp:Player, eg:Group?, ep:Player, ev:integer, re:Effect?, r:integer, rp:Player, chk: 0?, chkc:Card?) : boolean?
 
+---@alias OperationFun fun(e:Effect, tp:Player, eg:Group?, ep:Player, ev:integer, re:Effect?, r:integer, rp:Player)
 
----@class CardTable : Card
+---@alias FilterFun fun(c:Card, ...) : boolean
 
----获取 self_table, self_code, offset
----@return CardTable self_table
----@return integer self_code
----@return integer offset  1 or 100
-function GetID() end

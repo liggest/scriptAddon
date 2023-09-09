@@ -64,7 +64,7 @@ function Debug.PreAddCounter(c, counter_type, count) end
 -- 		 大师1规则： DUEL_OBSOLETE_RULING  
 -- 	rule=4 是新大师规则  
 ---@param flag integer
----@param rule? integer 3
+---@param rule? integer 5
 function Debug.ReloadFieldBegin(flag, rule) end
 
 -- ●void Debug.ReloadFieldEnd()  
